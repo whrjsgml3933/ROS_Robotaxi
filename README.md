@@ -1,4 +1,19 @@
 # roscamp-repo-2
+
+## 코드와 운영 자료 찾기
+
+| 구분 | 폴더 |
+| --- | --- |
+| 관리자·승객 화면 | [GUI](GUI/) |
+| Pinky 주행·충전 노드와 지도·설정 | [robot/pinky](robot/pinky/) |
+| 로봇팔 제어 | [robot/jetcobot](robot/jetcobot/) |
+| API·비전 서버 | [server](server/) |
+| 설치·운영 메모 | [docs/operations](docs/operations/) |
+| 이전 코드·UI 백업 | [archive](archive/) |
+
+전체 파일 배치와 기존 경로에서 옮기는 방법은 [저장소 구조 안내](docs/REPOSITORY_STRUCTURE.md)를 참고하세요. 기존 프로젝트 소개·팀 역할·구현 자료는 아래에 보존했습니다.
+
+---
 ROS2와 AI를 활용한 자율주행 로봇개발자 부트캠프 2팀 저장소. ROS2 기반 자율 시스템 무인 택시 충전·운영 통합 플랫폼 (AutoServe)
 <img width="1080" height="1080" alt="로고" src="https://github.com/user-attachments/assets/92fddc97-94ce-4efc-8d83-4f9b04b3f1e3" />
 <h1 align="center">🚖 TASHO</h1>
