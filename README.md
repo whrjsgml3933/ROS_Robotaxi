@@ -1,4 +1,20 @@
-# roscamp-repo-2
+# TASHO — ROS 2 기반 무인 택시 충전·운영 통합 시스템
+
+자율주행 이동 로봇, 로봇팔 충전, 승객·관리자 화면과 서버를 연결한 6인 팀 프로젝트입니다. 택시 호출부터 목적지 주행, 배터리 상태에 따른 충전까지 하나의 운영 시나리오로 구성했습니다.
+
+**조건희의 담당:** 팀장(Project manager), Pinky 담당. 아래 팀 역할표는 기존 프로젝트 기록을 기준으로 하며, 시스템 전체는 팀 공동 결과물입니다.
+
+## 핵심 구현 살펴보기
+
+| 영역 | 저장소에서 확인할 수 있는 구현 |
+| --- | --- |
+| 주행·도킹 | [목적지 주행·도킹 노드](robot/pinky/pinky_click_nav2_pid_docking.py), [Nav2 설정](robot/pinky/nav2_params.yaml) |
+| 충전·복귀 | [충전 이동](robot/pinky/pinky_charge.py), [충전 후 이동](robot/pinky/pinky_after_charge.py), [원점 복귀](robot/pinky/pinky_idle_origin.py) |
+| 속도 명령 중재 | [외부 정지·객체 인식·도킹·내비게이션 명령의 우선순위 처리](robot/pinky/cmd_vel_arbiter_yolo.py) |
+| 운영 흐름 | [Pinky Supervisor](robot/pinky_supervisor.py), [API 서버](server/main_server/) |
+| 사용자 접점 | [승객 화면](GUI/user_gui/), [관리자 화면](GUI/admin_ui/) |
+
+시나리오별 구현 자료는 아래에 있습니다. 실행에는 ROS 2와 실제 장비·네트워크 설정이 필요하며, 시작 전 [Pinky 실행 환경 안내](robot/pinky/README.md)와 [저장소 구조·배포 안내](docs/REPOSITORY_STRUCTURE.md)를 확인하세요.
 
 ## 코드와 운영 자료 찾기
 
@@ -15,8 +31,7 @@
 
 ---
 ROS2와 AI를 활용한 자율주행 로봇개발자 부트캠프 2팀 저장소. ROS2 기반 자율 시스템 무인 택시 충전·운영 통합 플랫폼 (AutoServe)
-<img width="1080" height="1080" alt="로고" src="https://github.com/user-attachments/assets/92fddc97-94ce-4efc-8d83-4f9b04b3f1e3" />
-<h1 align="center">🚖 TASHO</h1>
+<img width="360" alt="TASHO 로고" src="https://github.com/user-attachments/assets/92fddc97-94ce-4efc-8d83-4f9b04b3f1e3" />
 
 <p align="center">2-PRO 팀이 개발한, AI 기반 자율 시스템 무인 택시 충전·운영 통합 시스템입니다.</p>
 
@@ -42,10 +57,11 @@ ROS2와 AI를 활용한 자율주행 로봇개발자 부트캠프 2팀 저장소
 # ⚙️ 기술 스택 (Tech Stack)
 - **Hardware Platform**:Raspberry Pi(PinkyBot, Jetcobot)
 - **Development Environment**: Ubuntu(24.04) ROS2(Jazzy), OpenCV, YOLOv8, PyQt
-- **Programming Languages**:Python, MySQL
+- **Programming Language**: Python
+- **Database**: MySQL
 - **Sensors & Perception Devices**LiDAR, Camera, IR Sensor
 - **Communication Protocols**: TCP, UDP, HTTP
-- **TOS2 Middleware & Messaging**: ROS2 Domain Bridge
+- **ROS 2 Middleware & Messaging**: ROS2 Domain Bridge
 - **Configuration Management**: Github, Jira, Confluence, Slack
 
 # 📁 시스템 구성 (System Architecture)
@@ -77,8 +93,6 @@ ROS2와 AI를 활용한 자율주행 로봇개발자 부트캠프 2팀 저장소
 ## Scenario
 ### 시나리오 1 - 무인 택시 호출
 ![시나리오 1 호출](https://github.com/user-attachments/assets/3883a51b-1379-436a-a064-79145245c792)
-<img src="images/gui.png" alt="GUI" width="800" />
-<img src="images/wngod.png" alt="GUI" width="800" />
 
 ### 시나리오 2 - 무인 택시 주행
 ![시나리오 2 주행](https://github.com/user-attachments/assets/e0103423-531c-4a1d-9bd8-88ff34d97043)
@@ -87,10 +101,5 @@ ROS2와 AI를 활용한 자율주행 로봇개발자 부트캠프 2팀 저장소
 ### 시나리오 3 - 로봇팔 충전 
 **조건:** 배터리 ≤ 30%
 ![시나리오 3 로봇팔 충전](https://github.com/user-attachments/assets/0390a252-9746-4ba2-ac99-fc3be3f6aa96)
-
-
-# 🎥 Demonstration Video
-## 영상 제목
-(영상)
 
 
