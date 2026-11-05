@@ -1,16 +1,22 @@
 from __future__ import annotations
 
+import os
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 import pymysql
 
 # ===== DB CONFIG =====
-DB_HOST = "192.168.1.8"
-DB_PORT = 3306
-DB_USER = "pinky13_user"
-DB_PASS = "1"
-DB_NAME = "Tasho_server"
+DB_HOST = os.getenv("TASHO_DB_HOST", "").strip()
+DB_USER = os.getenv("TASHO_DB_USER", "").strip()
+DB_PASS = os.getenv("TASHO_DB_PASSWORD", "")
+DB_NAME = os.getenv("TASHO_DB_NAME", "").strip()
+try:
+    DB_PORT = int(os.getenv("TASHO_DB_PORT", "3306"))
+except ValueError:
+    raise RuntimeError("TASHO_DB_PORT must be an integer from 1 to 65535.") from None
+if not 1 <= DB_PORT <= 65535:
+    raise RuntimeError("TASHO_DB_PORT must be an integer from 1 to 65535.")
 
 # 짧게 잡아서, DB 문제 때 API가 “멈춘 것처럼” 안 보이게 함
 DB_CONNECT_TIMEOUT_SEC = 2
@@ -22,6 +28,17 @@ def now_iso() -> str:
 
 
 def _get_conn():
+    required = {
+        "TASHO_DB_HOST": DB_HOST,
+        "TASHO_DB_USER": DB_USER,
+        "TASHO_DB_PASSWORD": DB_PASS,
+        "TASHO_DB_NAME": DB_NAME,
+    }
+    missing = [name for name, value in required.items() if not value]
+    if missing:
+        raise RuntimeError(
+            "Missing database environment variables: " + ", ".join(missing)
+        )
     return pymysql.connect(
         host=DB_HOST,
         port=DB_PORT,

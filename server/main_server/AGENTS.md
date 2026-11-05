@@ -11,7 +11,7 @@ Guide for coding agents working in this repository.
 - DB helpers: `server_core/db.py`.
 - Schema bootstrap: `server_core/schema.py`.
 - Logging helper: `server_core/log.py`.
-- No committed `tests/` directory yet.
+- Targeted DB configuration tests: `tests/test_db_configuration.py`.
 - No committed `pyproject.toml`, `setup.cfg`, `tox.ini`, or `requirements.txt`.
 
 ## Cursor and Copilot Rules
@@ -36,7 +36,9 @@ Notes:
 
 - Most endpoints require DB connectivity.
 - Schema is ensured during startup lifespan.
-- DB credentials are currently hardcoded in `server_core/db.py`.
+- Set `TASHO_DB_HOST`, `TASHO_DB_USER`, `TASHO_DB_PASSWORD`, and `TASHO_DB_NAME` in the server process environment; `TASHO_DB_PORT` defaults to 3306.
+- `.env.example` documents these names; `.env` is not automatically loaded.
+- See `../../docs/operations/credentials.md` for setup and credential rotation.
 
 ## Run Commands
 
@@ -97,7 +99,13 @@ mypy fastapi_server.py server_core
 
 ## Test Commands (including single test)
 
-Project currently has no committed tests; use `pytest` for new tests.
+Run configuration regression tests without a live database:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Use `pytest` for additional endpoint tests.
 
 Run all tests:
 
@@ -211,7 +219,8 @@ If adding tests, prefer:
 
 ## Current Gaps
 
-- No committed test suite.
+- Only DB configuration regression tests; endpoint and state-transition tests are still missing.
 - No pinned dependency manifest.
 - No CI workflow.
 - No strict lint/type config.
+
